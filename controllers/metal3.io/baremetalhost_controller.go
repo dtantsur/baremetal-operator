@@ -761,6 +761,12 @@ func (r *BareMetalHostReconciler) registerHost(prov provisioner.Provisioner, inf
 		// No need to create PreprovisioningImage if host is not yet registered
 		// or is externally provisioned
 		preprovImgFormats = nil
+	case metal3v1alpha1.StateDeprovisioning, metal3v1alpha1.StateDeleting:
+		// This is an edge case when the deprovisioning happens because the namespace with BMHs is being deleted.
+		// In this case, it is not possible to create a PreprovisioningImage if it's somehow missing.
+		if info.host.Spec.AutomatedCleaningMode == metal3v1alpha1.CleaningModeDisabled {
+			preprovImgFormats = nil
+		}
 	}
 
 	preprovImg, err := r.getPreprovImage(info, preprovImgFormats)
