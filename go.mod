@@ -114,3 +114,5 @@ require (
 replace github.com/metal3-io/baremetal-operator/apis => ./apis
 
 replace github.com/metal3-io/baremetal-operator/pkg/hardwareutils => ./pkg/hardwareutils
+
+replace github.com/gophercloud/gophercloud/v2 => github.com/dtantsur/gophercloud/v2 v2.0.0-20260910143822-070d42b42ded
